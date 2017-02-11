@@ -9,9 +9,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class ResetSettings extends Command
 {
-    /** @var Settings */
+    /** @var Settings The service to interact with the settings */
     private $settings;
 
+    /**
+     * @param Settings $settings
+     */
     public function __construct(Settings $settings)
     {
         $this->settings = $settings;
@@ -21,10 +24,17 @@ final class ResetSettings extends Command
 
     protected function configure()
     {
-        $this->setName('settings:reset')
+        $this
+            ->setName('settings:reset')
             ->setDescription('Reset the settings to the default settings');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->settings->reset();

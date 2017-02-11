@@ -11,9 +11,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class SetDefaultPhpVersion extends Command
 {
-    /** @var Settings */
+    /** @var Settings The service to interact with the settings */
     private $settings;
 
+    /**
+     * @param Settings $settings
+     */
     public function __construct(Settings $settings)
     {
         $this->settings = $settings;
@@ -23,7 +26,8 @@ final class SetDefaultPhpVersion extends Command
 
     protected function configure()
     {
-        $this->setName('settings:set:default-php-version')
+        $this
+            ->setName('settings:set:default-php-version')
             ->setDescription('Sets the default php version')
             ->addArgument(
                 'php-version',
@@ -32,6 +36,12 @@ final class SetDefaultPhpVersion extends Command
             );
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $requestedPhpVersion = $input->getArgument('php-version');

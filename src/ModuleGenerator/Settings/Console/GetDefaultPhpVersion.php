@@ -9,9 +9,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class GetDefaultPhpVersion extends Command
 {
-    /** @var Settings */
+    /** @var Settings The service to interact with the settings */
     private $settings;
 
+    /**
+     * @param Settings $settings
+     */
     public function __construct(Settings $settings)
     {
         $this->settings = $settings;
@@ -21,10 +24,17 @@ final class GetDefaultPhpVersion extends Command
 
     protected function configure()
     {
-        $this->setName('settings:get:default-php-version')
+        $this
+            ->setName('settings:get:default-php-version')
             ->setDescription('Gets the default php version');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(number_format($this->settings->get(Settings::DEFAULT_PHP_VERSION), 1));
