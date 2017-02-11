@@ -1,16 +1,7 @@
 imports:
   - { resource: ../src/ModuleGenerator/Settings/Resources/Config/services.yml }
+  - { resource: ../src/ModuleGenerator/Update/Resources/Config/services.yml }
 
 #services:
 #  module-generator_dumper:
 #    class: ModuleGenerator\CLI\Service\Generate\FileDumper
-#
-#  module-generator_update_service:
-#    class: ModuleGenerator\CLI\Service\ModuleGenerator\Update
-#    arguments:
-#      - '%vendor_directory%/..'
-#
-#  module-generator_settings_service:
-#    class: ModuleGenerator\CLI\Service\ModuleGenerator\Settings
-#    arguments:
-#      - '%kernel.root_dir%/settings.yml'

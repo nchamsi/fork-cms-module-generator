@@ -1,0 +1,7 @@
+services:
+  module-generator.update.console.update:
+    class: ModuleGenerator\ModuleGenerator\Update\Console\Update
+    arguments:
+      - '@module-generator.update'
+    tags:
+      - { name: console.command }

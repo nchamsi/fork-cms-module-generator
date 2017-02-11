@@ -1,0 +1,8 @@
+imports:
+  - { resource: console.yml }
+
+services:
+    module-generator.update:
+        class: ModuleGenerator\ModuleGenerator\Update\Update
+        arguments:
+            - '%vendor_directory%/..'

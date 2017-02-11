@@ -1,6 +1,6 @@
 <?php
 
-namespace ModuleGenerator\CLI\Service\ModuleGenerator;
+namespace ModuleGenerator\ModuleGenerator\Update;
 
 final class Update
 {

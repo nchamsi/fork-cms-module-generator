@@ -1,9 +1,9 @@
 <?php
 
-namespace ModuleGenerator\CLI\Console\ModuleGenerator;
+namespace ModuleGenerator\ModuleGenerator\Update\Console;
 
 use Symfony\Component\Console\Command\Command;
-use ModuleGenerator\CLI\Service\ModuleGenerator\Update as UpdateService;
+use ModuleGenerator\ModuleGenerator\Update\Update as UpdateService;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
