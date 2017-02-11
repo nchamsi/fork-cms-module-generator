@@ -1,10 +1,10 @@
 <?php
 
-namespace ModuleGenerator\CLI\Service\Generate;
+namespace ModuleGenerator\ModuleGenerator\File;
 
 use ModuleGenerator\PhpGenerator\ModuleName\ModuleName;
 
-abstract class GeneratableModuleFile extends GeneratableFile
+abstract class AbstractModuleClass extends AbstractClass
 {
     /** @var ModuleName */
     private $moduleName;

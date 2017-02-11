@@ -1,17 +1,17 @@
 <?php
 
-namespace ModuleGenerator\CLI\Service\Generate;
+namespace ModuleGenerator\ModuleGenerator\File;
 
 use ModuleGenerator\PhpGenerator\ClassName\ClassName;
 
-abstract class GeneratableClass
+abstract class AbstractClass
 {
     abstract public function getClassName(): ClassName;
 
     public function getTemplatePath(float $targetPhpVersion): string
     {
         return realpath(
-            __DIR__ . '/../../../' . preg_replace(
+            __DIR__ . '/../../src/' . preg_replace(
                 '/^ModuleGenerator/',
                 '',
                 str_replace('\\', '/', static::class) . '.php' . $targetPhpVersion * 10 . '.php.twig'
