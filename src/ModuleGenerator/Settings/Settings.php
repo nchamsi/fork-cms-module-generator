@@ -3,6 +3,7 @@
 namespace ModuleGenerator\ModuleGenerator\Settings;
 
 use InvalidArgumentException;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 use Symfony\Component\Yaml\Yaml;
 
 final class Settings
@@ -26,10 +27,18 @@ final class Settings
     private $settingsCacheFile;
 
     /**
+     * Used to translate between camel case and snake case
+     *
+     * @var CamelCaseToSnakeCaseNameConverter
+     */
+    private $caseConverter;
+
+    /**
      * @param string $settingsCacheFile The location of the file where the settings are permanently stored
      */
     public function __construct(string $settingsCacheFile)
     {
+        $this->caseConverter = new CamelCaseToSnakeCaseNameConverter();
         $this->settingsCacheFile = $settingsCacheFile;
 
         if (file_exists($this->settingsCacheFile)) {
@@ -63,11 +72,11 @@ final class Settings
      * @param string $setting The name of the setting, use one of the constants defined at the top
      *                        of this class to make sure you always will get the correct setting.
      * @param mixed $value The value of the setting
-     *
-     * @throws InvalidArgumentException When you try to overwrite the supported php versions, that one is set in stone
      */
     public function set(string $setting, $value)
     {
+        $this->validate($setting, $value);
+
         if ($setting === self::SUPPORTED_PHP_VERSIONS) {
             throw new InvalidArgumentException('You can\'t overwrite the supported PHP versions');
         }
@@ -75,6 +84,28 @@ final class Settings
         $this->settings[$setting] = $value;
 
         $this->save();
+    }
+
+    /**
+     * This method will check if there is a validator available for this setting and run it if it's the case
+     *
+     * @param string $setting The name of the setting, use one of the constants defined at the top
+     *                        of this class to make sure you always will get the correct setting.
+     * @param mixed $value The value of the setting
+     *
+     * @throws InvalidValue when the value isn't valid
+     */
+    private function validate(string $setting, $value)
+    {
+        $validatorMethodName = 'validate';
+        $validatorNamespace = '\\ModuleGenerator\\ModuleGenerator\\Settings\\Validator\\';
+        $validatorClassName = $validatorNamespace . ucfirst($this->caseConverter->denormalize(mb_strtolower($setting)));
+
+        if (!class_exists($validatorClassName)) {
+            return;
+        }
+
+        $validatorClassName::$validatorMethodName($this, $setting, $value);
     }
 
     /**
