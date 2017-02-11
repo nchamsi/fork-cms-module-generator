@@ -2,7 +2,6 @@
 
 namespace ModuleGenerator\ModuleGenerator\Settings;
 
-use InvalidArgumentException;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 use Symfony\Component\Yaml\Yaml;
 
@@ -76,10 +75,6 @@ final class Settings
     public function set(string $setting, $value)
     {
         $this->validate($setting, $value);
-
-        if ($setting === self::SUPPORTED_PHP_VERSIONS) {
-            throw new InvalidArgumentException('You can\'t overwrite the supported PHP versions');
-        }
 
         $this->settings[$setting] = $value;
 
