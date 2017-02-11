@@ -12,6 +12,9 @@ final class Update extends Command
     /** @var UpdateService */
     protected $update;
 
+    /**
+     * @param UpdateService $update
+     */
     public function __construct(UpdateService $update)
     {
         parent::__construct();
@@ -21,10 +24,15 @@ final class Update extends Command
 
     protected function configure()
     {
-        $this->setName('self:update')
+        $this
+            ->setName('self:update')
             ->setDescription('Updates the module-generator');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->update->run();
