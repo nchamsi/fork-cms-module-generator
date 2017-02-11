@@ -5,4 +5,4 @@ services:
     module-generator.settings:
         class: ModuleGenerator\ModuleGenerator\Settings\Settings
         arguments:
-            - '%kernel.root_dir%/settings.yml'
+            - '%module-generator.settings.path%'
