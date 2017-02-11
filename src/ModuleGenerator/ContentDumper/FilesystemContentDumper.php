@@ -1,10 +1,10 @@
 <?php
 
-namespace ModuleGenerator\CLI\Service\Generate;
+namespace ModuleGenerator\ModuleGenerator\ContentDumper;
 
 use Symfony\Component\Filesystem\Filesystem;
 
-final class FileDumper implements Dumper
+final class FilesystemContentDumper implements ContentDumper
 {
     /** @var Filesystem */
     private $fileSystem;

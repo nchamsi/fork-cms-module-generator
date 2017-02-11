@@ -1,6 +1,3 @@
 parameters:
   module-generator.settings.path: "%kernel.root_dir%/cache/test/settings.yml"
-
-services:
-  module-generator_dumper:
-    class: ModuleGenerator\CLI\Service\Generate\ConsoleOutputDumper
+  module-generator.content-dumper.class: "ModuleGenerator\ModuleGenerator\ContentDumper\ConsoleOutputContentDumper"

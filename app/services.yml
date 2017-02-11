@@ -1,7 +1,4 @@
 imports:
   - { resource: ../src/ModuleGenerator/Settings/Resources/Config/services.yml }
   - { resource: ../src/ModuleGenerator/Update/Resources/Config/services.yml }
-
-#services:
-#  module-generator_dumper:
-#    class: ModuleGenerator\CLI\Service\Generate\FileDumper
+  - { resource: ../src/ModuleGenerator/ContentDumper/Resources/Config/services.yml }

@@ -1,10 +1,10 @@
 <?php
 
-namespace ModuleGenerator\CLI\Service\Generate;
+namespace ModuleGenerator\ModuleGenerator\ContentDumper;
 
 use ModuleGenerator\CLI\Console\GenerateCommand;
 
-final class ConsoleOutputDumper implements Dumper
+final class ConsoleOutputContentDumper implements ContentDumper
 {
     public function dump(string $filename, string $content)
     {

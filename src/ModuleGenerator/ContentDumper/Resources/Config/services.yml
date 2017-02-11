@@ -1,0 +1,3 @@
+services:
+    module-generator.content-dumper:
+        class: '%module-generator.content-dumper.class%'

@@ -4,6 +4,7 @@ imports:
 parameters:
   secret: secret
   module-generator.settings.path: "%kernel.root_dir%/settings.yml"
+  module-generator.content-dumper.class: "ModuleGenerator\ModuleGenerator\ContentDumper\FilesystemContentDumper"
 
 framework:
   form:
