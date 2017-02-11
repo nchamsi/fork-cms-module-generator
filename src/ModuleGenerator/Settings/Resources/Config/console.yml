@@ -1,0 +1,21 @@
+services:
+  module-generator.setttings.console.set-default-php-version:
+    class: ModuleGenerator\ModuleGenerator\Settings\Console\SetDefaultPhpVersion
+    arguments:
+      - '@module-generator.settings'
+    tags:
+      - { name: console.command }
+
+  module-generator.setttings.console.get-default-php-version:
+    class: ModuleGenerator\ModuleGenerator\Settings\Console\GetDefaultPhpVersion
+    arguments:
+      - '@module-generator.settings'
+    tags:
+      - { name: console.command }
+
+  module-generator.setttings.console.reset-settings:
+    class: ModuleGenerator\ModuleGenerator\Settings\Console\ResetSettings
+    arguments:
+      - '@module-generator.settings'
+    tags:
+      - { name: console.command }

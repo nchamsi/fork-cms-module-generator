@@ -1,13 +1,13 @@
 <?php
 
-namespace ModuleGenerator\CLI\Console\Settings;
+namespace ModuleGenerator\ModuleGenerator\Settings\Console;
 
-use ModuleGenerator\CLI\Service\ModuleGenerator\Settings;
+use ModuleGenerator\ModuleGenerator\Settings\Settings;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class Reset extends Command
+final class ResetSettings extends Command
 {
     /** @var Settings */
     private $settings;

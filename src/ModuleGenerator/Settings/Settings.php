@@ -1,8 +1,7 @@
 <?php
 
-namespace ModuleGenerator\CLI\Service\ModuleGenerator;
+namespace ModuleGenerator\ModuleGenerator\Settings;
 
-use ModuleGenerator\CLI\Exception\SettingNotFound;
 use Symfony\Component\Yaml\Yaml;
 
 final class Settings

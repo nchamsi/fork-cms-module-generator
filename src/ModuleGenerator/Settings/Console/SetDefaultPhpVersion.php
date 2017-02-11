@@ -1,15 +1,15 @@
 <?php
 
-namespace ModuleGenerator\CLI\Console\Settings\Set;
+namespace ModuleGenerator\ModuleGenerator\Settings\Console;
 
-use ModuleGenerator\CLI\Service\ModuleGenerator\Settings;
+use ModuleGenerator\ModuleGenerator\Settings\Settings;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class DefaultPhpVersion extends Command
+final class SetDefaultPhpVersion extends Command
 {
     /** @var Settings */
     private $settings;
