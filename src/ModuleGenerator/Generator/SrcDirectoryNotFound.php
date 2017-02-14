@@ -1,6 +1,6 @@
 <?php
 
-namespace ModuleGenerator\CLI\Exception;
+namespace ModuleGenerator\ModuleGenerator\Generator;
 
 use Exception;
 

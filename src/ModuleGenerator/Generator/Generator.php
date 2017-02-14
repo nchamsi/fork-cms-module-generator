@@ -1,12 +1,12 @@
 <?php
 
-namespace ModuleGenerator\CLI\Service\Generate;
+namespace ModuleGenerator\ModuleGenerator\Generator;
 
-use ModuleGenerator\CLI\Exception\SrcDirectoryNotFound;
+use ModuleGenerator\ModuleGenerator\ContentDumper\ContentDumper;
+use ModuleGenerator\ModuleGenerator\File\AbstractFile;
 use Symfony\Bundle\TwigBundle\TwigEngine;
-use Symfony\Component\Filesystem\Filesystem;
 
-final class Generate
+final class Generator
 {
     /** @var string the directory where the command was executed */
     protected $currentWorkingDirectory;
@@ -17,17 +17,18 @@ final class Generate
     /** @var TwigEngine */
     private $templating;
 
-    /** @var Dumper */
-    private $dumper;
+    /** @var ContentDumper */
+    private $contentDumper;
 
     /**
      * @param TwigEngine $templating
+     * @param ContentDumper $contentDumper
      */
-    public function __construct(TwigEngine $templating, Dumper $dumper)
+    public function __construct(TwigEngine $templating, ContentDumper $contentDumper)
     {
         $this->currentWorkingDirectory = getcwd();
         $this->templating = $templating;
-        $this->dumper = $dumper;
+        $this->contentDumper = $contentDumper;
     }
 
     /**
@@ -35,7 +36,7 @@ final class Generate
      *
      * @return string The src directory
      */
-    protected function getGenerateDirectory()
+    private function getGenerateDirectory()
     {
         if ($this->generateDirectory !== null) {
             return $this->generateDirectory;
@@ -61,42 +62,32 @@ final class Generate
         throw SrcDirectoryNotFound::forDirectory($this->currentWorkingDirectory);
     }
 
-    public function generateClasses(array $classes, float $targetPhpVersion)
+    /**
+     * @param AbstractFile $file
+     * @param float $targetPhpVersion
+     */
+    public function generate(AbstractFile $file, float $targetPhpVersion)
     {
-        array_map(
-            function (GeneratableClass $class) use ($targetPhpVersion) {
-                $fileDirectory = '/' . str_replace('\\', '/', $class->getClassName()->getNamespace()->getName());
-                $filename = $fileDirectory . '/' . $class->getClassName()->getName() . '.php';
-
-                $this->dumper->dump(
-                    $this->getGenerateDirectory() . $filename,
-                    $this->templating->render($class->getTemplatePath($targetPhpVersion), ['class' => $class])
-                );
-            },
-            $classes
-        );
+        $this->generateMultiple([$file], $targetPhpVersion);
     }
 
-    public function generateFiles(array $files, float $targetPhpVersion)
+    /**
+     * @param AbstractFile[] $files
+     * @param float $targetPhpVersion
+     */
+    public function generateMultiple(array $files, float $targetPhpVersion)
     {
         array_map(
-            function (GeneratableFile $file) use ($targetPhpVersion) {
-                $this->dumper->dump(
+            function (AbstractFile $file) use ($targetPhpVersion) {
+                $this->contentDumper->dump(
                     $this->getGenerateDirectory() . '/' . $file->getFilePath($targetPhpVersion),
-                    $this->templating->render($file->getTemplatePath($targetPhpVersion), ['file' => $file])
+                    $this->templating->render(
+                        $file->getTemplatePath($targetPhpVersion),
+                        [$file::TEMPLATE_KEY => $file]
+                    )
                 );
             },
             $files
         );
-    }
-
-    public function generateClass(GeneratableClass $class, float $targetPhpVersion)
-    {
-        $this->generateClasses([$class], $targetPhpVersion);
-    }
-
-    public function generateFile(GeneratableFile $file, float $targetPhpVersion)
-    {
-        $this->generateFiles([$file], $targetPhpVersion);
     }
 }
