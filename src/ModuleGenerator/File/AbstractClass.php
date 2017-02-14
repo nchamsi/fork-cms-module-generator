@@ -4,10 +4,32 @@ namespace ModuleGenerator\ModuleGenerator\File;
 
 use ModuleGenerator\PhpGenerator\ClassName\ClassName;
 
-abstract class AbstractClass
+abstract class AbstractClass extends AbstractFile
 {
+    const TEMPLATE_KEY = 'class';
+
+    /**
+     * @return ClassName
+     */
     abstract public function getClassName(): ClassName;
 
+    /**
+     * @param float $targetPhpVersion
+     *
+     * @return string
+     */
+    public function getFilePath(float $targetPhpVersion): string
+    {
+        $fileDirectory = str_replace('\\', '/', $this->getClassName()->getNamespace()->getName());
+
+        return $fileDirectory . '/' . $this->getClassName()->getName() . '.php';
+    }
+
+    /**
+     * @param float $targetPhpVersion
+     *
+     * @return string
+     */
     public function getTemplatePath(float $targetPhpVersion): string
     {
         return realpath(
