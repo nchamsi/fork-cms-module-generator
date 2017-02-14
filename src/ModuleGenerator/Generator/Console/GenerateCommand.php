@@ -1,9 +1,9 @@
 <?php
 
-namespace ModuleGenerator\CLI\Console;
+namespace ModuleGenerator\ModuleGenerator\Generator\Console;
 
-use ModuleGenerator\CLI\Service\Generate\Generate;
-use ModuleGenerator\CLI\Service\ModuleGenerator\Settings;
+use ModuleGenerator\ModuleGenerator\Generator\Generator;
+use ModuleGenerator\ModuleGenerator\Settings\Settings;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,8 +12,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class GenerateCommand extends Command
 {
-    /** @var Generate */
-    protected $generateService;
+    /** @var Generator */
+    protected $generator;
 
     /** @var Settings */
     protected $settings;
@@ -38,12 +38,12 @@ abstract class GenerateCommand extends Command
     }
 
     /**
-     * @param Generate $generateService
+     * @param Generator $generator
      * @param Settings $settings
      */
-    public function __construct(Generate $generateService, Settings $settings)
+    public function __construct(Generator $generator, Settings $settings)
     {
-        $this->generateService = $generateService;
+        $this->generator = $generator;
         $this->settings = $settings;
         parent::__construct();
     }
